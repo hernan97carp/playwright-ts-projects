@@ -3,25 +3,18 @@ import { Page, Locator } from '@playwright/test';
 export class ShoppingCarPage {
   page: Page;
 
-  inputUsername: () => Locator;
-  inputPassword: () => Locator;
-  loginButton: () => Locator;
-  itemsContainer: () => Locator;
-  addToCar: () => Locator;
-  currentName: () => Locator;
-  shoppingCartContainer: () => Locator;
-  currentDescription: () => Locator;
-  currentPrice: () => Locator;
-  checkOut: () => Locator;
-  continue: () => Locator;
+  private readonly itemsContainer: () => Locator;
+  private readonly addToCar: () => Locator;
+  private readonly currentName: () => Locator;
+  private readonly shoppingCartContainer: () => Locator;
+  private readonly currentDescription: () => Locator;
+  private readonly currentPrice: () => Locator;
+  private readonly checkOut: () => Locator;
+  private readonly continue: () => Locator;
 
   constructor(driver: Page) {
     this.page = driver;
-    this.inputUsername = () =>
-      this.page.getByRole('textbox', { name: 'Username' });
-    this.inputPassword = () =>
-      this.page.getByRole('textbox', { name: 'Password' });
-    this.loginButton = () => this.page.getByRole('button', { name: 'Login' });
+
     this.itemsContainer = () =>
       this.page.locator('#inventory_container .inventory_item');
     this.addToCar = () =>
@@ -38,12 +31,7 @@ export class ShoppingCarPage {
     this.continue = () => this.page.getByRole('button', { name: 'Continue' });
   }
 
-  async loginSUT() {
-    await this.inputUsername().fill('standard_user');
-    await this.inputPassword().fill('secret_sauce');
-    await this.loginButton().click();
-  }
-
+  
   async getRandomItemDetails() {
     const items = await this.itemsContainer().all();
     const randomIndex = Math.floor(Math.random() * items.length);
