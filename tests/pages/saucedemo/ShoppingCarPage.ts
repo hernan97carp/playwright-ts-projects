@@ -1,7 +1,7 @@
 import { Page, Locator } from '@playwright/test';
 
 export class ShoppingCarPage {
-  page: Page;
+  private page: Page;
 
   private readonly itemsContainer: () => Locator;
   private readonly addToCar: () => Locator;
@@ -53,22 +53,28 @@ export class ShoppingCarPage {
     return { expectedName, expectedPrice, expectedDescription, randomItem };
   }
 
-  async currentResults() {
+  public async currentResults() {
     const currentName = await this.currentName().innerText();
     const currentDescription = await this.currentDescription().innerText();
     const currentPrice = await this.currentPrice().innerText();
     return { currentName, currentDescription, currentPrice };
   }
 
-  async clickShoppingCart() {
+  public async clickShoppingCart() {
     await this.shoppingCartContainer().click();
   }
 
-  async clickCheckOutButton() {
+  public async clickCheckOutButton() {
     await this.checkOut().click();
   }
 
-  async clickContinueButton() {
+  public async clickContinueButton() {
     await this.continue().click();
   }
+  
+
+public async goTo():Promise<void>{
+  await this.page.goto('https://www.saucedemo.com/inventory.html');
+}
+
 }

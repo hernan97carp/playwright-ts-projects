@@ -1,10 +1,10 @@
 import { Locator, Page } from '@playwright/test';
 export class NumberProcessorPage {
-  page: Page;
-  processorInput: () => Locator;
-  processorButton: () => Locator;
-  outputMessage: () => Locator;
-  mappedNumbers: { [index: number]: string };
+  private page: Page;
+  private readonly processorInput: () => Locator;
+  private readonly processorButton: () => Locator;
+  private readonly outputMessage: () => Locator;
+  private readonly mappedNumbers: { [index: number]: string };
 
   // Instanciar el Page de playwright
   constructor(driver: Page) {
@@ -27,24 +27,24 @@ export class NumberProcessorPage {
   }
 
   // Add methods
-  async enterNumbers(numbers: number[]) {
+  public async enterNumbers(numbers: number[]) {
     console.log('Entering numbers:', numbers.toString());
     await this.processorInput().fill(numbers.toString());
   }
 
-  async processOnServer() {
+  public async processOnServer() {
     console.log('Clicking on process button');
     await this.processorButton().click();
   }
 
-  async getProcessedNumbers() {
+  public async getProcessedNumbers() {
     await this.outputMessage().isVisible();
     const text = await this.outputMessage().innerText();
     console.log('Output message:', text);
     return text;
   }
 
-  async setNumbersToNames(numbers: number[]) {
+  public async setNumbersToNames(numbers: number[]) {
     const convertNumbers = numbers.map((i) => this.mappedNumbers[i]);
     console.log('Converted numbers:', convertNumbers.toString());
     return convertNumbers.toString().replaceAll(',', ', ');

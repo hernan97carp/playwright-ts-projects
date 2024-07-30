@@ -4,7 +4,7 @@ import { ShoppingCarPage } from '../../pages/saucedemo/ShoppingCarPage'
 test.describe('SauceDemo | Shopping Cart', () => {
   test('TC1: purchase an item', async ({ page }) => {
     const shoppingCarPage = new ShoppingCarPage(page);
-    await page.goto('https://www.saucedemo.com/inventory.html');
+    await shoppingCarPage.goTo()
 
     await test.step('Get name, price, and description of the selected item', async () => {
       const itemDetails = await shoppingCarPage.getRandomItemDetails();

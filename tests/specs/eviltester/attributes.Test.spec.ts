@@ -10,7 +10,7 @@ test.describe('Paragraph Text | basic-web-page-test', () => {
   }) => {
     const attPage = new AttributesPage(page);
     await test.step('Go to the page', async () => {
-      await page.goto('https://testpages.eviltester.com/styled/attributes-test.html');
+     await attPage.goTo();
     });
 
     await test.step('Verify the page title', async () => {
@@ -19,24 +19,24 @@ test.describe('Paragraph Text | basic-web-page-test', () => {
     });
 
     await test.step('Locate element with simple attributes', async () => {
-      await expect(attPage.textHasAttr()).toHaveText(
+      await expect(attPage.textHasAttr).toHaveText(
         'This paragraph has attributes',
       );
     });
 
     await test.step('Locate element with dynamic attribute', async () => {
-      await expect(attPage.textHasDyAttr()).toHaveText(
+      await expect(attPage.textHasDyAttr).toHaveText(
         'This paragraph has dynamic attributes',
       );
     });
 
     await test.step('Locate Button and verify its attributes', async () => {
-      await attPage.buttonAddAnotherAttribute();
-      await expect(attPage.buttonNextId()).toBeVisible();
+       await attPage.addAnotherAttribute();
+      await expect(attPage.buttonNextId).toBeVisible();
     });
 
     await test.step('Locate element with DYNAMIC attribute', async () => {
-      await expect(attPage.dynamicText()).toHaveText(
+      await expect(attPage.dynamicText).toHaveText(
         'This paragraph has dynamic attributes',
       );
     });
